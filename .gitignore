@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Директус
+/extensions/**/node_modules/
+/extensions/**/.env
+/extensions/**/dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Операційна система
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Логи
+*.log
+logs/
+
+# Тимчасові файли
+tmp/
+temp/
