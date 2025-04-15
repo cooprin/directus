@@ -12,8 +12,9 @@ COPY ./extensions/ /directus/extensions/
 # Директорії для роботи Directus
 RUN mkdir -p /directus/uploads
 
-# Необхідно для запуску як не root користувач
-RUN chown -R node:node /directus/extensions /directus/uploads
+# Не використовуємо chown під час збірки, 
+# оскільки образ directus/directus вже має правильні права доступу
+# Dockerfile з базового образу вже встановлює права для користувача node
 
 # Використовуємо непривілейованого користувача
 USER node
