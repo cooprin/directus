@@ -1,20 +1,28 @@
+# Базовий образ Directus
 FROM directus/directus:latest
 
-# Основні налаштування
-ENV NODE_ENV=production
+# Встановлення робочої директорії
+WORKDIR /directus
 
-# Додаткові налаштування для українського перекладу
+# Встановлення змінних середовища
+ENV NODE_ENV=production
 ENV ADMIN_LOCALE=uk-UA
 
-# Копіюємо розширення, якщо вони є
-COPY ./extensions/ /directus/extensions/
+# Створення директорій для Directus
+RUN mkdir -p /directus/uploads /directus/extensions
 
-# Директорії для роботи Directus
-RUN mkdir -p /directus/uploads
+# Копіювання користувацьких розширень, якщо є
+# Розкоментуйте наступний рядок, якщо у вас є custom extensions
+# COPY ./extensions/ /directus/extensions/
 
-# Не використовуємо chown під час збірки, 
-# оскільки образ directus/directus вже має правильні права доступу
-# Dockerfile з базового образу вже встановлює права для користувача node
+# Встановлення прав доступу для користувача node
+RUN chown -R node:node /directus/uploads /directus/extensions
 
-# Використовуємо непривілейованого користувача
+# Перемикання на непривілейованого користувача
 USER node
+
+# Відкриття порту для Directus
+EXPOSE 8055
+
+# Запуск Directus
+CMD ["npx", "directus", "start"]
